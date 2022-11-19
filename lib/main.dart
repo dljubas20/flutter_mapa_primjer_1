@@ -40,11 +40,11 @@ class _MapaState extends State<Mapa> {
       center: LatLong(45.815010, 15.981919),
       buttonColor: Colors.blue,
       buttonText: 'Set Current Location',
-      onPicked: (pickedData) {
-        print(pickedData.latLong.latitude);
-        print(pickedData.latLong.longitude);
-        print(pickedData.address);
-      }
+      onPicked: callbackFunkcija
     );
   }
+}
+
+void callbackFunkcija(PickedData data) {
+  print(data.address);
 }
