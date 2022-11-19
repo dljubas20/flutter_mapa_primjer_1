@@ -37,7 +37,7 @@ class _MapaState extends State<Mapa> {
   @override
   Widget build(BuildContext context) {
     return OpenStreetMapSearchAndPick(
-      center: LatLong(23, 89),
+      center: LatLong(45.815010, 15.981919),
       buttonColor: Colors.blue,
       buttonText: 'Set Current Location',
       onPicked: (pickedData) {
