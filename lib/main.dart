@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +36,22 @@ class Mapa extends StatefulWidget {
 }
 
 class _MapaState extends State<Mapa> {
+  @override
+  void initState() {
+    super.initState();
+  	PermissionWithService lokacija = Permission.locationWhenInUse;
+
+    lokacija.request().then((status) => {
+      if (status == PermissionStatus.granted) {
+        print("uspjesno odobreno")
+      }
+      else {
+        print("odbijeno")
+      }
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return OpenStreetMapSearchAndPick(
