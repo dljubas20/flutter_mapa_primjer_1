@@ -36,6 +36,19 @@ class Mapa extends StatefulWidget {
 }
 
 class _MapaState extends State<Mapa> {
+
+  var pozicija = [45.815010, 15.981919];
+
+  void postaviPoziciju() async {
+    if(await Geolocator.isLocationServiceEnabled()){
+      var p = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        pozicija[0] = p.latitude;
+        pozicija[1] = p.longitude;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +56,7 @@ class _MapaState extends State<Mapa> {
 
     lokacija.request().then((status) => {
       if (status == PermissionStatus.granted) {
-        print("uspjesno odobreno")
+        postaviPoziciju()
       }
       else {
         print("odbijeno")
@@ -54,8 +67,9 @@ class _MapaState extends State<Mapa> {
 
   @override
   Widget build(BuildContext context) {
+    postaviPoziciju();
     return OpenStreetMapSearchAndPick(
-      center: LatLong(45.815010, 15.981919),
+      center: LatLong(pozicija[0], pozicija[1]),
       buttonColor: Colors.blue,
       buttonText: 'Set Current Location',
       onPicked: callbackFunkcija
